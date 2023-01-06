@@ -1,6 +1,6 @@
-import { Knex } from 'knex';
+import { Knex } from "knex";
 
-import { PokemonTable } from '@/utils/Constants';
+import { PokemonTable } from "@/utils/Constants";
 
 export async function up(knex: Knex): Promise<void> {
   const hasTable = await knex.schema.hasTable(PokemonTable);
@@ -9,11 +9,11 @@ export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable(PokemonTable, (table) => {
       table.increments();
 
-      table.integer('national_pokedex_index').notNullable();
-      table.string('name', 80).notNullable();
+      table.integer("national_pokedex_index").notNullable();
+      table.string("name", 80).notNullable();
 
-      table.timestamp('created_at', { useTz: false }).defaultTo(knex.fn.now());
-      table.timestamp('updated_at', { useTz: false }).defaultTo(knex.fn.now());
+      table.timestamp("created_at", { useTz: false }).defaultTo(knex.fn.now());
+      table.timestamp("updated_at", { useTz: false }).defaultTo(knex.fn.now());
     });
 
     await knex.schema.raw(`CREATE OR REPLACE FUNCTION trigger_set_updated_at()
@@ -34,5 +34,5 @@ export async function up(knex: Knex): Promise<void> {
 export async function down(knex: Knex): Promise<void> {
   await knex.schema.dropTableIfExists(PokemonTable);
 
-  await knex.schema.raw('DROP FUNCTION IF EXISTS trigger_set_updated_at();');
+  await knex.schema.raw("DROP FUNCTION IF EXISTS trigger_set_updated_at();");
 }

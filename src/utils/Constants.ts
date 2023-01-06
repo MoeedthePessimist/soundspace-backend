@@ -2,3 +2,4 @@
 export const PokemonTable = 'pokemons';
 export const TrainerTable = 'trainers';
 export const TrainerPokemonTable = 'trainer_pokemons';
+export const UserTable = 'users';
